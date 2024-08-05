@@ -31,7 +31,11 @@ List<GameDto> games = [
 app.MapGet("games", () => games);// minimal api
 
 //GET /games/1
-app.MapGet("games/{id}", (int id) => games.Find(game => game.Id == id)).WithName("GetGame");
+app.MapGet("games/{id}", (int id) => {
+    GameDto? game = games.Find(game => game.Id == id);
+    return game is null ? Results.NotFound() : Results.Ok(game);
+})
+    .WithName("GetGame");
 
 // POST /games
 app.MapPost("games", (CreateGameDto newGame) =>
@@ -53,7 +57,12 @@ app.MapPost("games", (CreateGameDto newGame) =>
 app.MapPut("games/{id}", (int id, UpdateGameDto updateGame) =>
 {
     var index = games.FindIndex(game => game.Id == id);
-    games[index] = new GameDto(id,
+    if(index == -1)
+    {
+        return Results.NotFound();
+    }
+    games[index] = new GameDto(
+        id,
         updateGame.Name,
         updateGame.Genre,
         updateGame.Price,
