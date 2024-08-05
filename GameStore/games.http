@@ -1,7 +1,7 @@
 GET http://localhost:5165/games
 
 ###
-GET http://localhost:5165/games/2
+GET http://localhost:5165/games/1
 
 ###
 POST http://localhost:5165/games
@@ -12,4 +12,15 @@ Content-Type: application/json
   "genre": "Building",
   "price": 20.20,
   "releaseDate": "2011-11-18"
+}
+
+###
+PUT http://localhost:5165/games/1
+Content-Type: application/json
+
+{
+  "name": "Minecraft",
+  "genre": "Building",
+  "price": 20.20,
+  "releaseDate": "1999-3-23"
 }
