@@ -30,7 +30,8 @@ namespace GameStore.Endpoints
 
         public static RouteGroupBuilder MapGamesEndpoints(this WebApplication app)
         {
-            var group = app.MapGroup("games");
+            var group = app.MapGroup("games")
+                .WithParameterValidation();// to notice the data annotation that was required in the createGameDto
 
             // GET /games
             group.MapGet("/", () => games);// minimal api
@@ -45,6 +46,7 @@ namespace GameStore.Endpoints
             // POST /games
             group.MapPost("/", (CreateGameDto newGame) =>
             {
+
                 GameDto game = new(
                     games.Count + 1,
                     newGame.Name,
@@ -66,6 +68,7 @@ namespace GameStore.Endpoints
                 {
                     return Results.NotFound();
                 }
+
                 games[index] = new GameDto(
                     id,
                     updateGame.Name,
