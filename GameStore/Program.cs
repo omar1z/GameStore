@@ -31,6 +31,22 @@ List<GameDto> games = [
 app.MapGet("games", () => games);// minimal api
 
 //GET /games/1
-app.MapGet("games/{id}", (int id) => games.Find(game => game.Id == id));
+app.MapGet("games/{id}", (int id) => games.Find(game => game.Id == id)).WithName("GetGame");
+
+// POST /games
+app.MapPost("games", (CreateGameDto newGame) =>
+{
+    GameDto game = new(
+        games.Count+1,
+        newGame.Name,
+        newGame.Genre,
+        newGame.Price,
+        newGame.RealeaseDate
+        );
+
+    games.Add(game);
+
+    return Results.CreatedAtRoute("GetGame", new { id = game.Id}, game);
+});
 
 app.Run();
