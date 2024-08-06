@@ -8,22 +8,22 @@ POST http://localhost:5165/games
 Content-Type: application/json
 
 {
-  "name": "Street Fighter 2",
+  "name": "Street Fighter ",
   "genreId": 1,
-  "price": 9.90,
+  "price": 5.90,
   "releaseDate": "2011-11-18"
 }
 
 ###
-PUT http://localhost:5165/games/9
+PUT http://localhost:5165/games/1
 Content-Type: application/json
 
 {
-  "name": "Minecraft",
-  "genre": "Building",
-  "price": 20.20,
+  "name": "Minecraft Lite",
+  "genreId": "5",
+  "price": 25,
   "releaseDate": "1999-3-23"
 }
 
 ### 
-DELETE http://localhost:5165/games/1
+DELETE http://localhost:5165/games/3
